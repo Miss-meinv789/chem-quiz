@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>化学习题 · 错题本</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f5f9ff 0%, #e3edf7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        #app {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 36px;
+            box-shadow: 0 25px 40px -12px rgba(0, 30, 60, 0.35), 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 24px 20px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: all 0.2s ease;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3 {
+            color: #0b2b44;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h1 span {
+            background: #1e6f9f;
+            color: white;
+            font-size: 14px;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        .subhead {
+            color: #3d5a73;
+            font-size: 15px;
+            margin-bottom: 24px;
+            border-left: 4px solid #2e8bc0;
+            padding-left: 14px;
+            background: rgba(46, 139, 192, 0.08);
+            border-radius: 0 8px 8px 0;
+            line-height: 1.4;
+        }
+
+        /* 登录页面 */
+        .login-view {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 28px;
+            padding: 28px 22px;
+            box-shadow: 0 12px 28px -10px rgba(0, 50, 80, 0.2);
+            border: 1px solid #d9e9f5;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e4c6e;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #cde3f0;
+            border-radius: 18px;
+            font-size: 16px;
+            background: #f9fcff;
+            transition: 0.2s;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #2e8bc0;
+            box-shadow: 0 0 0 4px rgba(46, 139, 192, 0.15);
+            background: white;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 30px;
+            padding: 16px 24px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            background: white;
+            color: #1e4c6e;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            border: 1px solid #bed9ec;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #1e6f9f;
+            color: white;
+            border: none;
+            box-shadow: 0 12px 18px -8px rgba(24, 96, 140, 0.5);
+        }
+
+        .btn-primary:hover {
+            background: #155b85;
+            transform: scale(1.01);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: #e8f1f8;
+            border: 1px solid #c2d9ea;
+            color: #1c4b6e;
+        }
+
+        .btn-secondary:hover {
+            background: #d9e9f5;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-sm {
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+
+        /* 仪表盘 */
+        .dashboard-view {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 20px;
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-radius: 24px;
+            padding: 12px 18px;
+            box-shadow: 0 6px 12px -6px rgba(0, 30, 60, 0.1);
+            border: 1px solid #d4e6f2;
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2e8bc0, #1e6f9f);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #0b2b44;
+            font-size: 16px;
+        }
+
+        .stat-badge {
+            background: #f0f7fe;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 13px;
+            color: #1e6f9f;
+            font-weight: 500;
+        }
+
+        .quiz-list {
+            background: white;
+            border-radius: 28px;
+            padding: 18px;
+            box-shadow: 0 8px 16px -8px rgba(0, 30, 60, 0.1);
+            border: 1px solid #d4e6f2;
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #0b2b44;
+            margin-bottom: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .quiz-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 12px;
+            border-bottom: 1px solid #e5eff7;
+            transition: 0.1s;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+
+        .quiz-item:hover {
+            background: #f1f9ff;
+        }
+
+        .quiz-item:last-child {
+            border-bottom: none;
+        }
+
+        .quiz-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1d3d58;
+            margin-bottom: 4px;
+        }
+
+        .quiz-info p {
+            font-size: 13px;
+            color: #6585a0;
+        }
+
+        .quiz-action {
+            background: #e8f1f8;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e6f9f;
+            border: 1px solid #c2d9ea;
+        }
+
+        /* 答题区域 */
+        .quiz-view {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 4px;
+        }
+
+        .progress-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1e4c6e;
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: #d4e4f0;
+            border-radius: 20px;
+            flex: 1;
+            margin: 0 16px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2e8bc0;
+            width: 0%;
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 32px;
+            padding: 28px 22px;
+            box-shadow: 0 16px 28px -12px rgba(0, 30, 60, 0.2);
+            border: 1px solid #cde3f0;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .question-stem {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0b2b44;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .option-item {
+            background: #f9fcff;
+            border: 1.5px solid #d9e9f5;
+            border-radius: 22px;
+            padding: 16px 18px;
+            font-size: 16px;
+            color: #1a3d58;
+            cursor: pointer;
+            transition: 0.1s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-item:hover {
+            background: #e7f3fc;
+            border-color: #aacae2;
+        }
+
+        .option-item.selected {
+            background: #d9edff;
+            border-color: #2e8bc0;
+            box-shadow: 0 0 0 2px rgba(46, 139, 192, 0.2);
+        }
+
+        .option-prefix {
+            font-weight: 700;
+            color: #2e8bc0;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+            gap: 12px;
+        }
+
+        .nav-buttons .btn {
+            flex: 1;
+        }
+
+        /* 结果页 */
+        .result-view {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 20px;
+        }
+
+        .score-card {
+            background: linear-gradient(135deg, #1e6f9f, #145a83);
+            border-radius: 32px;
+            padding: 28px 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 18px 28px -12px #145a83;
+        }
+
+        .score-number {
+            font-size: 58px;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .score-total {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .score-card h2 {
+            color: white;
+            font-size: 22px;
+            margin-top: 8px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .wrong-list {
+            background: white;
+            border-radius: 28px;
+            padding: 18px;
+            border: 1px solid #d4e6f2;
+            flex: 1;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .wrong-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #e5eff7;
+        }
+
+        .wrong-item:last-child {
+            border-bottom: none;
+        }
+
+        .wrong-question {
+            font-weight: 600;
+            color: #a13e3e;
+            margin-bottom: 6px;
+            font-size: 15px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .wrong-detail {
+            font-size: 14px;
+            color: #446688;
+            margin-left: 24px;
+        }
+
+        .wrong-detail span {
+            color: #c0392b;
+            font-weight: 600;
+        }
+
+        /* 错题本页面 */
+        .wrongbook-view {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            gap: 16px;
+        }
+
+        .wrongbook-list {
+            background: white;
+            border-radius: 28px;
+            padding: 12px;
+            border: 1px solid #d4e6f2;
+            flex: 1;
+            max-height: 420px;
+            overflow-y: auto;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #8ba3b8;
+            font-size: 15px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .back-link button {
+            background: none;
+            border: none;
+            color: #1e6f9f;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .text-muted {
+            color: #6585a0;
+            font-size: 13px;
+        }
+
+        .mt-2 {
+            margin-top: 8px;
+        }
+
+        .mb-2 {
+            margin-bottom: 8px;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- 登录页 -->
+    <div id="loginView" class="login-view">
+        <h1>🧪 化学习题 <span>错题本</span></h1>
+        <p class="subhead">每份15道选择题，逐题练习，自动收录错题。</p>
+        <div class="login-card">
+            <div class="input-group">
+                <label>用户名</label>
+                <input type="text" id="usernameInput" placeholder="例如：化学小王子" value="chem_student">
+            </div>
+            <button class="btn btn-primary btn-block" id="loginBtn">登录 / 开始练习</button>
+        </div>
+    </div>
+
+    <!-- 仪表盘 -->
+    <div id="dashboardView" class="dashboard-view hidden">
+        <div class="user-header">
+            <div class="user-badge">
+                <div class="avatar" id="avatarLetter">C</div>
+                <span class="user-name" id="displayUsername">chem_student</span>
+            </div>
+            <div class="stat-badge" id="wrongCountBadge">错题 0</div>
+        </div>
+        <div class="quiz-list">
+            <div class="section-title">
+                📘 练习题库
+                <button class="btn btn-secondary btn-sm" id="openWrongBookBtn">📕 错题本</button>
+            </div>
+            <div id="quizListContainer">
+                <!-- 动态生成quiz列表 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 答题视图 -->
+    <div id="quizView" class="quiz-view hidden">
+        <div class="progress-header">
+            <span class="progress-text" id="progressText">1 / 15</span>
+            <div class="progress-bar-bg">
+                <div class="progress-fill" id="progressFill" style="width: 6.6%;"></div>
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="question-stem" id="questionStem">题目加载中...</div>
+            <div class="options-list" id="optionsList"></div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" id="prevBtn" disabled>← 上一题</button>
+                <button class="btn btn-primary" id="nextBtn">下一题 →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 结果视图 -->
+    <div id="resultView" class="result-view hidden">
+        <div class="score-card">
+            <div class="score-number" id="scoreNumber">0</div>
+            <div class="score-total" id="scoreTotal">/ 15</div>
+            <h2 id="resultTitle">继续加油！</h2>
+        </div>
+        <div class="section-title" style="margin: 0 4px;">❌ 错题分析</div>
+        <div class="wrong-list" id="resultWrongList"></div>
+        <button class="btn btn-primary btn-block" id="backToDashboardFromResult">返回题库</button>
+    </div>
+
+    <!-- 错题本视图 -->
+    <div id="wrongBookView" class="wrongbook-view hidden">
+        <div class="user-header">
+            <div class="user-badge">
+                <div class="avatar" id="wrongBookAvatar">C</div>
+                <span class="user-name" id="wrongBookUsername">chem_student</span>
+            </div>
+            <div class="stat-badge" id="wrongBookCount">0 题</div>
+        </div>
+        <div class="wrongbook-list" id="wrongBookListContainer">
+            <!-- 错题列表 -->
+        </div>
+        <div class="back-link">
+            <button id="backToDashboardFromWrongBook">← 返回题库</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- 题库数据 ----------
+    // 每份题目: id, title, questions[15], 每题包含: id, stem, options[4], correct(0-3)
+    const QUIZ_SETS = [
+        {
+            id: 'quiz1',
+            title: '基础化学 · 第一套',
+            questions: [
+                { id: 1, stem: '下列元素中，原子半径最大的是？', options: ['F', 'Cl', 'Br', 'I'], correct: 3 },
+                { id: 2, stem: '水的化学式是？', options: ['H2O', 'CO2', 'NaCl', 'O2'], correct: 0 },
+                { id: 3, stem: '下列属于化学变化的是？', options: ['冰融化', '酒精挥发', '铁生锈', '玻璃破碎'], correct: 2 },
+                { id: 4, stem: '空气中体积分数约占21%的气体是？', options: ['氮气', '氧气', '二氧化碳', '稀有气体'], correct: 1 },
+                { id: 5, stem: '下列物质中，属于纯净物的是？', options: ['食醋', '蒸馏水', '加碘盐', '空气'], correct: 1 },
+                { id: 6, stem: '原子序数为11的元素是？', options: ['Mg', 'Na', 'Al', 'K'], correct: 1 },
+                { id: 7, stem: '下列金属中，活动性最强的是？', options: ['铜', '铁', '锌', '镁'], correct: 3 },
+                { id: 8, stem: '实验室制取氧气常用的药品是？', options: ['高锰酸钾', '氯化钠', '碳酸钙', '氢氧化钠'], correct: 0 },
+                { id: 9, stem: '下列符号中，表示两个氢原子的是？', options: ['H2', '2H', '2H2', 'H'], correct: 1 },
+                { id: 10, stem: 'PH值等于7的溶液呈？', options: ['酸性', '碱性', '中性', '无法判断'], correct: 2 },
+                { id: 11, stem: '下列反应属于化合反应的是？', options: ['CaCO3 → CaO + CO2', '2H2 + O2 → 2H2O', 'NaOH + HCl → NaCl + H2O', 'Zn + H2SO4 → ZnSO4 + H2'], correct: 1 },
+                { id: 12, stem: '下列物质中，含有氧分子的是？', options: ['水', '二氧化碳', '空气', '高锰酸钾'], correct: 2 },
+                { id: 13, stem: '碳在氧气中充分燃烧的产物是？', options: ['CO', 'CO2', 'H2O', 'SO2'], correct: 1 },
+                { id: 14, stem: '下列仪器不能直接加热的是？', options: ['试管', '蒸发皿', '烧杯', '坩埚'], correct: 2 },
+                { id: 15, stem: '地壳中含量最多的元素是？', options: ['硅', '氧', '铝', '铁'], correct: 1 }
+            ]
+        },
+        {
+            id: 'quiz2',
+            title: '物质结构与性质 · 第二套',
+            questions: [
+                { id: 1, stem: '决定元素种类的是？', options: ['质子数', '中子数', '电子数', '相对原子质量'], correct: 0 },
+                { id: 2, stem: '下列粒子中，带正电荷的是？', options: ['电子', '质子', '中子', '原子'], correct: 1 },
+                { id: 3, stem: '氯化钠是由什么构成的？', options: ['分子', '原子', '离子', '电子'], correct: 2 },
+                { id: 4, stem: '下列元素中，属于非金属元素的是？', options: ['Fe', 'Cu', 'S', 'Ca'], correct: 2 },
+                { id: 5, stem: '元素周期表共有几个周期？', options: ['5', '6', '7', '8'], correct: 2 },
+                { id: 6, stem: '镁原子的核外电子排布为2,8,2，它位于第几周期？', options: ['第二周期', '第三周期', '第四周期', '第二主族'], correct: 1 },
+                { id: 7, stem: '下列物质中，属于共价化合物的是？', options: ['NaCl', 'HCl', 'KBr', 'MgO'], correct: 1 },
+                { id: 8, stem: '氧原子的最外层电子数是？', options: ['4', '5', '6', '7'], correct: 2 },
+                { id: 9, stem: '下列符号中，表示铝离子的是？', options: ['Al', 'Al³⁺', 'Al³⁻', 'Al₂O₃'], correct: 1 },
+                { id: 10, stem: '同位素是指？', options: ['质子数相同中子数不同的原子', '质子数不同中子数相同的原子', '质子数相同电子数不同的原子', '中子数相同电子数不同的原子'], correct: 0 },
+                { id: 11, stem: '下列各组元素中，化学性质最相似的是？', options: ['Na和Mg', 'Li和Na', 'Ne和Ar', 'F和Cl'], correct: 1 },
+                { id: 12, stem: '下列化合物中，含有离子键的是？', options: ['CO2', 'H2O', 'KCl', 'CH4'], correct: 2 },
+                { id: 13, stem: '原子核外电子排布遵循的原则是？', options: ['能量最低原理', '泡利原理', '洪特规则', '以上都是'], correct: 3 },
+                { id: 14, stem: '下列微粒结构示意图中，表示阴离子的是？', options: ['质子数11，电子数11', '质子数17，电子数18', '质子数12，电子数10', '质子数8，电子数8'], correct: 1 },
+                { id: 15, stem: '碱金属元素位于周期表的哪一族？', options: ['IA族', 'IIA族', 'VIIA族', '0族'], correct: 0 }
+            ]
+        }
+    ];
+
+    // ---------- App 状态 ----------
+    let currentUser = null;                // 用户名
+    let currentQuizSet = null;            // 当前练习的套题对象
+    let currentQuestionIndex = 0;         // 当前题号索引 0~14
+    let userAnswers = [];                 // 长度15, 存储选择的选项索引 (0~3) 或 null
+    let userWrongBook = [];               // 错题本: 存储 { quizId, quizTitle, questionId, stem, userAnswer, correctAnswer, options }
+
+    // 预置一个错题示范(可选)，但为了干净起步，留空。用户错题后自动加入。
+
+    // ---------- DOM 元素 ----------
+    const loginView = document.getElementById('loginView');
+    const dashboardView = document.getElementById('dashboardView');
+    const quizView = document.getElementById('quizView');
+    const resultView = document.getElementById('resultView');
+    const wrongBookView = document.getElementById('wrongBookView');
+
+    const usernameInput = document.getElementById('usernameInput');
+    const loginBtn = document.getElementById('loginBtn');
+    const displayUsername = document.getElementById('displayUsername');
+    const avatarLetter = document.getElementById('avatarLetter');
+    const wrongCountBadge = document.getElementById('wrongCountBadge');
+    const quizListContainer = document.getElementById('quizListContainer');
+    const openWrongBookBtn = document.getElementById('openWrongBookBtn');
+
+    // 答题视图元素
+    const progressText = document.getElementById('progressText');
+    const progressFill = document.getElementById('progressFill');
+    const questionStem = document.getElementById('questionStem');
+    const optionsList = document.getElementById('optionsList');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // 结果视图
+    const scoreNumber = document.getElementById('scoreNumber');
+    const scoreTotal = document.getElementById('scoreTotal');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultWrongList = document.getElementById('resultWrongList');
+    const backToDashboardFromResult = document.getElementById('backToDashboardFromResult');
+
+    // 错题本视图
+    const wrongBookUsername = document.getElementById('wrongBookUsername');
+    const wrongBookAvatar = document.getElementById('wrongBookAvatar');
+    const wrongBookCount = document.getElementById('wrongBookCount');
+    const wrongBookListContainer = document.getElementById('wrongBookListContainer');
+    const backToDashboardFromWrongBook = document.getElementById('backToDashboardFromWrongBook');
+
+    // ---------- 辅助函数 ----------
+    function showView(viewName) {
+        loginView.classList.add('hidden');
+        dashboardView.classList.add('hidden');
+        quizView.classList.add('hidden');
+        resultView.classList.add('hidden');
+        wrongBookView.classList.add('hidden');
+        if (viewName === 'login') loginView.classList.remove('hidden');
+        else if (viewName === 'dashboard') dashboardView.classList.remove('hidden');
+        else if (viewName === 'quiz') quizView.classList.remove('hidden');
+        else if (viewName === 'result') resultView.classList.remove('hidden');
+        else if (viewName === 'wrongBook') wrongBookView.classList.remove('hidden');
+    }
+
+    // 更新所有用户相关的UI
+    function updateUserUI() {
+        if (!currentUser) return;
+        displayUsername.textContent = currentUser;
+        avatarLetter.textContent = currentUser.charAt(0).toUpperCase();
+        wrongBookAvatar.textContent = currentUser.charAt(0).toUpperCase();
+        wrongBookUsername.textContent = currentUser;
+        const wrongCount = userWrongBook.length;
+        wrongCountBadge.textContent = `错题 ${wrongCount}`;
+        wrongBookCount.textContent = `${wrongCount} 题`;
+    }
+
+    // 保存错题到错题本（自动去重，基于quizId+questionId）
+    function addToWrongBook(quizSet, question, userAnswerIndex) {
+        const quizId = quizSet.id;
+        const questionId = question.id;
+        // 去重: 如果同一个题目已经在错题本，先删除旧的（更新）
+        const existingIndex = userWrongBook.findIndex(item => item.quizId === quizId && item.questionId === questionId);
+        if (existingIndex !== -1) {
+            userWrongBook.splice(existingIndex, 1);
+        }
+        // 加入新错题
+        userWrongBook.push({
+            quizId,
+            quizTitle: quizSet.title,
+            questionId,
+            stem: question.stem,
+            options: [...question.options],
+            userAnswer: userAnswerIndex,       // 整数 0-3
+            correctAnswer: question.correct,
+        });
+    }
+
+    // 渲染首页题库列表
+    function renderDashboardQuizList() {
+        quizListContainer.innerHTML = '';
+        QUIZ_SETS.forEach(quiz => {
+            const item = document.createElement('div');
+            item.className = 'quiz-item';
+            item.innerHTML = `
+                <div class="quiz-info">
+                    <h4>${quiz.title}</h4>
+                    <p>15道选择题 · 共1份</p>
+                </div>
+                <div class="quiz-action">开始练习 →</div>
+            `;
+            item.addEventListener('click', () => startQuiz(quiz.id));
+            quizListContainer.appendChild(item);
+        });
+    }
+
+    // 开始练习
+    function startQuiz(quizId) {
+        const quiz = QUIZ_SETS.find(q => q.id === quizId);
+        if (!quiz) return;
+        currentQuizSet = quiz;
+        currentQuestionIndex = 0;
+        userAnswers = new Array(15).fill(null);
+        showView('quiz');
+        renderQuestion();
+    }
+
+    // 渲染当前题目
+    function renderQuestion() {
+        if (!currentQuizSet) return;
+        const question = currentQuizSet.questions[currentQuestionIndex];
+        // 更新进度
+        progressText.textContent = `${currentQuestionIndex + 1} / 15`;
+        const percent = ((currentQuestionIndex + 1) / 15) * 100;
+        progressFill.style.width = `${percent}%`;
+
+        questionStem.textContent = question.stem;
+
+        // 渲染选项
+        optionsList.innerHTML = '';
+        const letters = ['A', 'B', 'C', 'D'];
+        question.options.forEach((opt, idx) => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'option-item';
+            if (userAnswers[currentQuestionIndex] === idx) {
+                optionDiv.classList.add('selected');
+            }
+            optionDiv.innerHTML = `<span class="option-prefix">${letters[idx]}</span> ${opt}`;
+            optionDiv.addEventListener('click', () => {
+                // 记录选择
+                userAnswers[currentQuestionIndex] = idx;
+                // 重新渲染让选中效果更新
+                renderQuestion();
+            });
+            optionsList.appendChild(optionDiv);
+        });
+
+        // 上一题/下一题状态
+        prevBtn.disabled = currentQuestionIndex === 0;
+        if (currentQuestionIndex === 14) {
+            nextBtn.textContent = '提交答案 ✓';
+        } else {
+            nextBtn.textContent = '下一题 →';
+        }
+    }
+
+    // 提交练习，计算分数，展示结果
+    function submitQuiz() {
+        if (!currentQuizSet) return;
+        // 检查是否所有题目都回答了？这里不强求，但未答按错误算
+        let correctCount = 0;
+        // 先清除该套题在错题本中的旧记录？ 不，每道错题单独处理，但addToWrongBook会去重。不过我们需要重新收集本次错题。
+        // 但注意：如果之前错过，这次对了，应该从错题本移除？ 产品需求: 错题都收录，但答对后应该移除错题本里同一题吗？ 合理做法：答对则从错题本移除该题。
+        // 我们根据本次答题结果更新错题本。
+        // 遍历所有题目，对比答案
+        currentQuizSet.questions.forEach((q, idx) => {
+            const userAns = userAnswers[idx];
+            const isCorrect = (userAns === q.correct);
+            if (isCorrect) {
+                // 答对: 从错题本移除该题(如果有)
+                const existingIndex = userWrongBook.findIndex(item => item.quizId === currentQuizSet.id && item.questionId === q.id);
+                if (existingIndex !== -1) {
+                    userWrongBook.splice(existingIndex, 1);
+                }
+                correctCount++;
+            } else {
+                // 答错或者未答: 加入错题本 (如果未答userAns为null, 记作-1)
+                const ansToStore = (userAns === null) ? -1 : userAns;
+                addToWrongBook(currentQuizSet, q, ansToStore);
+            }
+        });
+
+        // 计算分数 (每题1分，总分15)
+        const score = correctCount;
+        scoreNumber.textContent = score;
+        scoreTotal.textContent = '/ 15';
+        if (score === 15) resultTitle.textContent = '🎉 满分！化学大师！';
+        else if (score >= 12) resultTitle.textContent = '👍 很不错，继续努力！';
+        else if (score >= 8) resultTitle.textContent = '📚 再复习一下错题吧';
+        else resultTitle.textContent = '💪 多练几遍，加油！';
+
+        // 生成结果页错题分析列表 (只展示本次练习中的错题)
+        const wrongInThisQuiz = [];
+        currentQuizSet.questions.forEach((q, idx) => {
+            const userAns = userAnswers[idx];
+            if (userAns !== q.correct) {
+                wrongInThisQuiz.push({
+                    question: q,
+                    userAnswer: userAns,
+                    index: idx
+                });
+            }
+        });
+
+        if (wrongInThisQuiz.length === 0) {
+            resultWrongList.innerHTML = `<div class="empty-state">✨ 全对！没有错题</div>`;
+        } else {
+            resultWrongList.innerHTML = wrongInThisQuiz.map(item => {
+                const q = item.question;
+                const letters = ['A', 'B', 'C', 'D'];
+                const userLetter = (item.userAnswer !== null && item.userAnswer !== -1) ? letters[item.userAnswer] : '未选';
+                const correctLetter = letters[q.correct];
+                return `
+                    <div class="wrong-item">
+                        <div class="wrong-question">❌ 第${item.index+1}题: ${q.stem}</div>
+                        <div class="wrong-detail">你的答案: <span>${userLetter}</span>  正确答案: <span>${correctLetter}</span> (${q.options[q.correct]})</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 更新用户UI和错题本数量
+        updateUserUI();
+        showView('result');
+    }
+
+    // 渲染错题本
+    function renderWrongBook() {
+        if (!currentUser) return;
+        wrongBookCount.textContent = `${userWrongBook.length} 题`;
+        if (userWrongBook.length === 0) {
+            wrongBookListContainer.innerHTML = `<div class="empty-state">📭 错题本是空的，继续练习吧</div>`;
+            return;
+        }
+        let html = '';
+        userWrongBook.forEach((item, idx) => {
+            const letters = ['A', 'B', 'C', 'D'];
+            const userLetter = (item.userAnswer !== undefined && item.userAnswer !== -1) ? letters[item.userAnswer] : '未选';
+            const correctLetter = letters[item.correctAnswer];
+            html += `
+                <div class="wrong-item" style="padding: 12px 0;">
+                    <div class="wrong-question">📌 ${item.quizTitle} · 第${item.questionId}题</div>
+                    <div style="font-weight:500; margin-bottom:4px; font-size:15px;">${item.stem}</div>
+                    <div class="wrong-detail">你的答案: <span>${userLetter}</span>  |  正确答案: <span>${correctLetter}</span> (${item.options[item.correctAnswer]})</div>
+                </div>
+            `;
+        });
+        wrongBookListContainer.innerHTML = html;
+    }
+
+    // 返回仪表盘并刷新
+    function backToDashboard() {
+        if (!currentUser) {
+            showView('login');
+            return;
+        }
+        updateUserUI();
+        renderDashboardQuizList();
+        showView('dashboard');
+    }
+
+    // ---------- 事件绑定 ----------
+    // 登录
+    loginBtn.addEventListener('click', () => {
+        const name = usernameInput.value.trim();
+        if (!name) {
+            alert('请输入用户名');
+            return;
+        }
+        currentUser = name;
+        // 重置错题本(每次登录重置? 但用户可能期望保留？这里我们重置，以便演示。也可以保留但为了干净，重置)
+        userWrongBook = [];
+        updateUserUI();
+        renderDashboardQuizList();
+        showView('dashboard');
+    });
+
+    // 上一题
+    prevBtn.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            renderQuestion();
+        }
+    });
+
+    // 下一题 / 提交
+    nextBtn.addEventListener('click', () => {
+        if (currentQuestionIndex < 14) {
+            currentQuestionIndex++;
+            renderQuestion();
+        } else {
+            // 提交
+            submitQuiz();
+        }
+    });
+
+    // 结果页返回题库
+    backToDashboardFromResult.addEventListener('click', () => {
+        backToDashboard();
+    });
+
+    // 打开错题本
+    openWrongBookBtn.addEventListener('click', () => {
+        if (!currentUser) return;
+        renderWrongBook();
+        showView('wrongBook');
+    });
+
+    // 从错题本返回题库
+    backToDashboardFromWrongBook.addEventListener('click', () => {
+        backToDashboard();
+    });
+
+    // 初始化 (显示登录)
+    showView('login');
+    // 预填一个用户名
+    usernameInput.value = 'chem_student';
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('service-worker.js')
+                .then((reg) => console.log('Service Worker 注册成功:', reg.scope))
+                .catch((err) => console.error('Service Worker 注册失败:', err));
+        });
+    }
+</script>
+</body>
+</html>
